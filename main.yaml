@@ -1,0 +1,41 @@
+- name: Setup nginx
+  hosts: all
+  become: true
+
+  vars:
+    nginx_file: mysite
+    site_a: /etc/nginx/sites-available
+    site_e: /etc/nginx/sites-enabled
+
+  vars_prompt:
+    - name: nginx
+      prompt: Install nginx?
+      private: false
+      default: false
+
+  tasks:
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+      when: nginx | bool
+    - name: Setup nginx
+      ansible.builtin.copy:
+        src: "{{nginx_file}}"
+        dest: "{{site_a}}"
+      notify:
+        - reload nginx
+    - name: Create symlink
+      ansible.builtin.file:
+        src:  "{{site_a}}/{{nginx_file}}"
+        dest: "{{site_e}}/{{nginx_file}}"
+        state: link
+        owner: root
+        group: root
+      notify:
+        - reload nginx
+
+  handlers:
+    - name: reload nginx
+      ansible.builtin.shell: nginx -s reload

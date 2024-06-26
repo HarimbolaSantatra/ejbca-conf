@@ -1,41 +1,33 @@
-# DEPLOY EJBCA QUICKLY USING TERRAFORM
-Run a production-ready [EJBCA docker container][1] using Terraform, an external MariaDB database and a Nginx reverse proxy.
+# DEPLOY EJBCA QUICKLY USING ANSIBLE AND TERRAFORM
+Run a production-ready [EJBCA docker container][1] using Terraform and a Nginx reverse proxy.
 Other deployement scenario are covered elsewhere:
-- [Using docker database](https://docs.keyfactor.com/ejbca/latest/tutorial-start-out-with-ejbca-docker-container) with compose
+- [Using an external database][1]
 - [Using httpd proxy](https://github.com/Keyfactor/keyfactorcommunity/tree/main/deployment-examples/docker-engine/ejbca-ce-three-level-architecture)
-
-Docker container environment variables:
-- `TLS_SETUP_ENABLED=later`
-- `PROXY_HTTP_BIND`
 
 Full instruction for the docker container can be found on [Docker Hub][1].
 
+
 ## Prerequisites
 For this example you will need:
-- [Nginx](http://nginx.org/) reverse proxy as a front-end
-- External [MariaDB](https://mariadb.com/) database
+- [Nginx](http://nginx.org/) reverse proxy as a front-end. The *main.yaml* playbook install Nginx if it's not installed yet.
 - [Terraform](https://developer.hashicorp.com/terraform/install)
 
 ## Setup 
+### Clone
 ```
 git clone https://github.com/Keyfactor/keyfactorcommunity.git
 cd keyfactorcommunity/deployement-examples/terraform
 ```
 
-Copy and edit the nginx configuration file:
-```
-cp mysite /etc/sites-available
-ln -s /etc/sites-available/mysite /etc/sites-enabled
-nginx -s reload
-```
-
-Setup your own terraform variable:
+### Setup your own terraform and ansible variable
 ```
 cp example.tfvars.sample production.tfvars
+cp inventory.ini.sample inventory.ini
 ```
 
-Deploy 🚀:
+### Deploy 🚀
 ```
+ansible-playbook -i inventory.ini main.yaml -K
 terraform init .
 terraform apply -var-file production.tfvars
 ```
