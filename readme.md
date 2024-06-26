@@ -15,8 +15,8 @@ For this example you will need:
 ## Setup 
 ### Clone
 ```
-git clone https://github.com/Keyfactor/keyfactorcommunity.git
-cd keyfactorcommunity/deployement-examples/terraform
+git clone https://github.com/HarimbolaSantatra/ejbca-terraform.git
+cd ejbca-terraform
 ```
 
 ### Setup your own terraform and ansible variable
