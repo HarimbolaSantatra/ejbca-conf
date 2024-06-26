@@ -16,12 +16,6 @@ variable "remote_host" {
   sensitive   = true
 }
 
-variable "db_host" {
-  description = "Host of the database"
-  type        = string
-  sensitive   = true
-}
-
 variable "db_name" {
   description = "Name of the database"
   type        = string
@@ -40,10 +34,23 @@ variable "image_name" {
   default     = "keyfactor/ejbca-ce"
 }
 
+variable "mariadb_image" {
+  description = "Name of the mariadb image"
+  type        = string
+  default     = "mariadb"
+}
+
 variable "container_name" {
   description = "Name of the container"
   type        = string
   default     = "ejbca"
+}
+
+
+variable "db_container_name" {
+  description = "Name of the database container"
+  type        = string
+  default     = "ejbca_db"
 }
 
 
@@ -57,4 +64,10 @@ variable "container_ip" {
   description = "Local IP address of the container"
   type        = string
   default     = "172.3.0.5"
+}
+
+variable "db_host" {
+  description = "Local IP address of the MariaDB container"
+  type        = string
+  default     = "172.3.0.6"
 }

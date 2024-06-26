@@ -18,6 +18,11 @@ resource "docker_image" "ejbca_img" {
   keep_locally = true
 }
 
+resource "docker_image" "mariadb" {
+  name         = var.mariadb_image
+  keep_locally = true
+}
+
 resource "docker_network" "ejbca_net" {
   name            = "ejbca_net"
   attachable      = false
@@ -46,5 +51,20 @@ resource "docker_container" "ejbca" {
   networks_advanced {
     name         = docker_network.ejbca_net.name
     ipv4_address = var.container_ip
+  }
+}
+
+resource "docker_container" "mariadb" {
+  name  = var.db_container_name
+  image = docker_image.mariadb_image.name
+  env = [
+    "MARIADB_USER=ejbca",
+    "MARIADB_PASSWORD=${var.db_password}",
+    "MARIADB_ROOT_PASSWORD=${var.db_password}",
+    "MARIADB_DATABASE=ejbca"
+  ]
+  networks_advanced {
+    name         = docker_network.ejbca_net.name
+    ipv4_address = var.db_host
   }
 }
