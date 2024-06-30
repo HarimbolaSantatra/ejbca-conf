@@ -1,5 +1,6 @@
 # EJBCA DOCKER CONTAINER TEMPLATE
-Run a production-ready [EJBCA docker container][1] using Terraform and a Nginx reverse proxy.
+Run a production-ready [EJBCA docker container][1] using *Terraform* and a Nginx reverse proxy. Optionally, setup the nginx reverse proxy with *ansible*.
+
 Other deployement scenario are covered elsewhere:
 - [Using an external database][1]
 - [Using httpd proxy](https://github.com/Keyfactor/keyfactorcommunity/tree/main/deployment-examples/docker-engine/ejbca-ce-three-level-architecture)
@@ -9,9 +10,9 @@ Full instruction for the docker container can be found on [Docker Hub][1].
 
 ## Prerequisites
 For this example you will need:
-- [Nginx](http://nginx.org/) reverse proxy as a front-end. The *main.yaml* playbook install Nginx if it's not installed yet.
+- [Nginx](http://nginx.org/) reverse proxy as a front-end. Use *main.yaml* ansible playbook to install and setup Nginx if it's not installed yet.
 - [Terraform](https://developer.hashicorp.com/terraform/install)
-- [Ansible](https://docs.ansible.com/)
+- [Ansible](https://docs.ansible.com/) (Optional)
 
 ## Setup 
 ### Clone
