@@ -34,10 +34,16 @@ terraform init .
 terraform apply -var-file production.tfvars
 ```
 
+---
+
+## Features
+- [ ] Support nginx container and bare metal installation
+
+---
+
 ## Resources
 - [EJBCA Community Edition][2]
 - [Mariadb container][3]
----
 
 [1]: https://hub.docker.com/r/keyfactor/ejbca-ce
 [2]: https://github.com/Keyfactor/ejbca-ce
